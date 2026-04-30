@@ -42,5 +42,6 @@ Após revisão do processo de agendamento de consultas, é possível adicionar m
 01/05/2026 - Multiplos terapeutas
 ```
 
-** Where to save the changelog file:**
+**Where to save the changelog file:**
+
 The changelog file should be saved in the `changelogs` directory at the root of the project. If the directory does not exist, it should be created. The file name should follow the format `changelog-<change-name>.txt`, where `<change-name>` is the name of the OpenSpec change for which the changelog entry is being written.
