@@ -5,8 +5,8 @@ license: MIT
 compatibility: No specific requirements.
 metadata:
   author: Thiago Giovanella
-  version: "1.0"
-  generatedBy: "1.0"
+  version: "2.0"
+  generatedBy: "2.0"
 ---
 
 ## Implement changelog file for an OpenSpec change
@@ -26,22 +26,36 @@ The spec also needs to be archived and synced before writing the changelog entry
 5. Write the changelog entry, ensuring it is informative and easy to understand for users who may not be familiar with the technical details of the change. Include links to the archived spec and any relevant documentation or resources.
 6. Give the user the steps to reproduce the change pointing the changed effects, actions or instructions the user may interact with, if applicable.
 7. Write the changelog in Brazilian Portuguese for a better understanding of the users.
-8. Salve the changelog with a name formatted as `changelog-<change-name>.txt` in the appropriate directory for changelogs in the project.
-9. In the end of the file, add the creation date and the specs' folder name.
-10. Use plan text formatting for the changelog entry.
+8. Save the changelog with a name formatted as `<change-name>.md` in the appropriate directory for changelogs in the project (the `<change-name>` slug must NOT include the `changelog-` prefix anymore).
+9. The file MUST start with a YAML frontmatter block followed by markdown content. Do NOT include the title or the date in the body — both belong in frontmatter.
+10. Use markdown formatting in the body (headings `###`, lists with `-` or `1.`, **bold**, paragraphs).
 
-**Example of a changelog entry:**
+**Required frontmatter fields:**
 
-```
-Novidades na versão: Multiplos terapeutas
--------------------------------------
+- `slug`: kebab-case identifier matching the file name (without `.md`).
+- `title`: human-readable release title in pt-BR.
+- `date`: ISO date `YYYY-MM-DD` of the release.
+- `archivedSpec` (optional): path to the archived spec folder, e.g. `openspec/changes/archive/2026-05-07-<change-name>`.
+
+**Example of a changelog entry (`changelogs/multiplos-terapeutas.md`):**
+
+```markdown
+---
+slug: multiplos-terapeutas
+title: Múltiplos terapeutas
+date: 2026-05-01
+archivedSpec: openspec/changes/archive/2026-05-01-multiplos-terapeutas
+---
 
 Após revisão do processo de agendamento de consultas, é possível adicionar mais de um terapeuta para um mesmo agendamento. No formulário de cadastro do agendamento, use o campo "Adicionar terapeuta" para incluir os profissionais que participarão da consulta. Essa melhoria visa facilitar o agendamento de consultas em grupo e garantir que todos os terapeutas envolvidos sejam devidamente registrados.
 
+### Como testar
 
-01/05/2026 - Multiplos terapeutas
+1. Abra a tela de agendamento.
+2. Use o campo "Adicionar terapeuta" para incluir um segundo profissional.
+3. Salve e confirme que ambos aparecem no card do agendamento.
 ```
 
 **Where to save the changelog file:**
 
-The changelog file should be saved in the `changelogs` directory at the root of the project. If the directory does not exist, it should be created. The file name should follow the format `changelog-<change-name>.txt`, where `<change-name>` is the name of the OpenSpec change for which the changelog entry is being written.
+The changelog file should be saved in the `changelogs` directory at the root of the project. If the directory does not exist, it should be created. The file name should follow the format `<change-name>.md`, where `<change-name>` is the OpenSpec change slug. This is the format consumed at build time by the in-app "Notas de versão" page (`/ajuda/notas-de-versao`), which renders each entry as a searchable accordion.
